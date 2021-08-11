@@ -11,6 +11,7 @@ router.put('/:id', postCtrl.updateOnePost);
 // delete a post
 router.delete('/:id', postCtrl.deleteOnePost);
 // like a post
+router.put('/:id/like', postCtrl.likeOnePost);
 // dislike a post
 // get a post
 // get timeline post
