@@ -9,6 +9,7 @@ router.post('/', postCtrl.createOnePost);
 // update a post
 router.put('/:id', postCtrl.updateOnePost);
 // delete a post
+router.delete('/:id', postCtrl.deleteOnePost);
 // like a post
 // dislike a post
 // get a post
