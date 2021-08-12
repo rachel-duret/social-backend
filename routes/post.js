@@ -16,7 +16,7 @@ router.put('/:id/like', postCtrl.likeOnePost);
 // get a post
 router.get('/:id', postCtrl.getOnePost);
 // get timeline post
-
+router.post('/timeline/all', postCtrl.timeline)
 
 
 

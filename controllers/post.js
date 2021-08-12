@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const User = require('../models/User');
 
 
 exports.createOnePost = async (req, res)=>{
@@ -72,6 +73,30 @@ exports.getOnePost = async (req, res)=>{
     try{
         const post = await Post.findById(req.params.id);
         res.status(200).json(post);
+
+    } catch(err){
+        res.status(500).json(err);
+        console.log(err);
+    }
+}
+
+
+exports.timeline = async(req, res) =>{
+  
+    try{
+        //find the current userId from User database.
+        const currentUser = await User.findById(req.body.userId);
+        //find all the post from the current user
+        const userPosts = await Post.find({userId: currentUser._id});
+
+        // find all the post of the friends， Promise.all 的作用是计划所有的promise重新包装成一个新的promise
+        const friendPosts = await Promise.all(
+            currentUser.followings.map((friendId)=>{
+                return Post.find({ userId: friendId});
+            })
+        );
+        //concat()方法用于连接2 个或者多个数组
+        res.status(200).json(userPosts.concat(...friendPosts))
 
     } catch(err){
         res.status(500).json(err);
