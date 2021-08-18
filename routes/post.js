@@ -18,7 +18,7 @@ router.get('/:id', postCtrl.getOnePost);
 // get timeline post
 router.get('/timeline/:userId', postCtrl.timeline)
 // get all user post
-router.get('/profile/:userId', postCtrl.userAllPost)
+router.get('/profile/:username', postCtrl.userAllPost)
 
 
 
