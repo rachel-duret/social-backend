@@ -10,6 +10,7 @@ router.post('/login', userCtrl.login);
 router.put('/:id', userCtrl.updateUser);
 router.delete('/:id', userCtrl.deleteUser);
 router.get('/:id', userCtrl.findOneUser );
+router.get('/', userCtrl.getOneUser)
 router.put('/:id/followers', userCtrl.followOneUser);
 router.put('/:id/unfollowers', userCtrl.unfollowOneUser);
 

@@ -8,6 +8,7 @@ const userRoute = require('./routes/users')
 const authRoute = require('./routes/auth')
 const postRoute = require('./routes/post')
 const bodyParser = require('body-parser');
+const cors = require ('cors');
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ mongoose.connect(process.env.DBURL, {
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan('common'));
+app.use(cors());
 
 app.use('/api/users',userRoute)
 app.use('/api/auth', authRoute)

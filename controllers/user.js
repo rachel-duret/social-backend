@@ -31,6 +31,8 @@ exports.login = async(req, res)=>{
         const validPassword = await bcrypt.compare(req.body.password, user.password)
         !validPassword && res.status(400).json('wrong password !')
 
+        res.status(200).json(user);
+
     } catch(err){
         res.status(500).json(err);
     }
@@ -140,5 +142,21 @@ exports.unfollowOneUser = async (req, res)=>{
     } else{
        return res.status(403).json('You can not unfollow yourself !');
 
+    }
+}
+
+exports.getOneUser = async (req, res)=>{
+    const userId = req.query.userId;
+  
+    const username = req.query.username;
+    console.log(username)
+    try{
+        const user = userId
+        ? await User.findById(userId)
+        : await User.findOne({username: username});
+        const { password , updatedAt, ...other} = user.doc;
+        res.status(200).json(other);
+    } catch(err){
+        res.status(500).json(err);
     }
 }

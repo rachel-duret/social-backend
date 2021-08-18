@@ -16,7 +16,9 @@ router.put('/:id/like', postCtrl.likeOnePost);
 // get a post
 router.get('/:id', postCtrl.getOnePost);
 // get timeline post
-router.post('/timeline/all', postCtrl.timeline)
+router.get('/timeline/:userId', postCtrl.timeline)
+// get all user post
+router.get('/profile/:userId', postCtrl.userAllPost)
 
 
 
