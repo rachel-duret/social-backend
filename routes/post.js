@@ -19,6 +19,8 @@ router.get('/:id', postCtrl.getOnePost);
 router.get('/timeline/:userId', postCtrl.timeline)
 // get all user post
 router.get('/profile/:username', postCtrl.userAllPost)
+//upload image
+
 
 
 
