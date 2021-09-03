@@ -113,11 +113,14 @@ exports.timeline = async(req, res) =>{
 exports.userAllPost = async(req, res) =>{
   
     try{
-        const user = await User.findOne({username: req.params.username});
+        const user = await User.findById( req.params.userId);
         console.log("i am"+user)
         const posts = await Post.find({userId: user._id});
-        console.log(post)
-        res.status(200).json(posts.concat(...user))
+        console.log(posts)
+        const userFullList = await Promise.all(
+            [user,posts]
+        )
+        res.status(200).json(userFullList)
 
     } catch(err){
         res.status(500).json(err);

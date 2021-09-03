@@ -11,6 +11,7 @@ router.put('/:id', userCtrl.updateUser);
 router.delete('/:id', userCtrl.deleteUser);
 router.get('/:id', userCtrl.findOneUser );
 router.get('/', userCtrl.getOneUser)
+router.get('/friends/:userId', userCtrl.findFriends)
 router.put('/:id/followers', userCtrl.followOneUser);
 router.put('/:id/unfollowers', userCtrl.unfollowOneUser);
 

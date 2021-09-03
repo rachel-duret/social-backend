@@ -90,7 +90,7 @@ exports.findOneUser = async (req, res)=>{
         res.status(200).json(other)
     } catch(err){
         res.status(500).json(err);
-        console.log(err)
+       
 
     }
 }
@@ -106,12 +106,12 @@ exports.followOneUser = async (req, res)=>{
                 await currentUser.updateOne({$push: {followings: req.params.id}});
                 res.status(200).json('User has been followed !')
             } else {
-                res.status(403).json('You already follow this user! ')
+                return res.status(403).json('You already follow this user! ')
             }
 
         } catch(err){
             res.status(500).json(err);
-            console.log(err);
+         
         }
 
     } else{
@@ -136,7 +136,7 @@ exports.unfollowOneUser = async (req, res)=>{
 
         } catch(err){
             res.status(500).json(err);
-            console.log(err);
+          
         }
 
     } else{
@@ -149,7 +149,7 @@ exports.getOneUser = async (req, res)=>{
     const userId = req.query.userId;
   
     const username = req.query.username;
-    console.log(username)
+ 
     try{
         const user = userId
         ? await User.findById(userId)
@@ -158,5 +158,29 @@ exports.getOneUser = async (req, res)=>{
         res.status(200).json(other);
     } catch(err){
         res.status(500).json(err);
+    }
+}
+
+
+exports.findFriends = async (req, res) => {
+    try{
+        const user = await User.findById(req.params.userId);
+        console.log(user)
+        const friends = await Promise.all(
+            user.followings.map(friendId =>{
+                return User.findById(friendId)
+            })
+        )
+        let friendList = [];
+        friends.map(friend =>{
+            const {_id, username, profilePicture} = friend
+            friendList.push({_id, username, profilePicture})
+        });
+        res.status(200).json(friendList);
+
+    } catch(err) {
+        res.status(500).json(err)
+        console.log(err)
+
     }
 }
