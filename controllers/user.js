@@ -165,7 +165,6 @@ exports.getOneUser = async (req, res)=>{
 exports.findFriends = async (req, res) => {
     try{
         const user = await User.findById(req.params.userId);
-        console.log(user)
         const friends = await Promise.all(
             user.followings.map(friendId =>{
                 return User.findById(friendId)
