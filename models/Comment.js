@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 
 const CommentSchema = new mongoose.Schema({
-    useId:{
+    userId:{
         type: String,
         required:true
     },
     desc:{
         type: String,
         max:500
+    },
+    postId:{
+        type: String,
+        required:true
     },
     img:{
         type: String

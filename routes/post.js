@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const postCtrl = require('../controllers/post');
+const commentCtrl = require('../controllers/comment')
 
 
 // create a post
@@ -21,6 +22,7 @@ router.get('/timeline/:userId', postCtrl.timeline)
 router.get('/profile/:userId', postCtrl.userAllPost)
 //upload image
 
+//coment
 
 
 

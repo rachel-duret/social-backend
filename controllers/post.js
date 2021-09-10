@@ -9,7 +9,6 @@ exports.createOnePost = async (req, res)=>{
         ...req.body,
         img:`${req.protocol}://${req.get('host')}/images/${req.body.img}`
     });
-    console.log(newPost)
     try{
         const savedPost = await newPost.save();
         res.status(201).json(savedPost); 
@@ -42,8 +41,8 @@ exports.updateOnePost = async (req, res) =>{
 
 exports.deleteOnePost = async(req, res)=>{
     try{
-        const post = await Post.findById(req.params.id);
-        console.log(post)
+        const post = await Post.findOne({userId:req.params.id});
+        console.log(req.body.userId)
         if(post.userId === req.body.userId){
             await post.deleteOne();
             res.status(200).json('Your post has been deleted !')
@@ -60,6 +59,7 @@ exports.deleteOnePost = async(req, res)=>{
 exports.likeOnePost = async (req, res)=>{
     try{
         const post = await Post.findById(req.params.id);
+        console.log(req.body.userId)
         if( !post.likes.includes(req.body.userId) ){
             await post.updateOne({$push:{likes:req.body.userId}});
             res.status(200).json('Post has been liked !')
@@ -101,6 +101,7 @@ exports.timeline = async(req, res) =>{
                 return Post.find({ userId: friendId});
             })
         );
+      
         //concat()方法用于连接2 个或者多个数组
         res.status(200).json(userPosts.concat(...friendPosts))
 
@@ -114,9 +115,9 @@ exports.userAllPost = async(req, res) =>{
   
     try{
         const user = await User.findById( req.params.userId);
-        console.log("i am"+user)
+      
         const posts = await Post.find({userId: user._id});
-        console.log(posts)
+   
         const userFullList = await Promise.all(
             [user,posts]
         )

@@ -84,6 +84,7 @@ exports.deleteUser = async (req, res)=>{
 exports.findOneUser = async (req, res)=>{
     try{
         const user = await User.findById(req.params.id);
+        console.log(user)
 
          // dont need retrun password and updateAt .user.doc = all the User information
         const { password,updatedAt, ...other }= user._doc

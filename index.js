@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const userRoute = require('./routes/users')
 const authRoute = require('./routes/auth')
 const postRoute = require('./routes/post')
+const commentRoute = require('./routes/comment');
 const bodyParser = require('body-parser');
 const cors = require ('cors');
 const path = require('path')
@@ -30,11 +31,16 @@ mongoose.connect(process.env.DBURL, {
 app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan('common'));
-app.use(cors());
+app.use(cors({
+  origin:["http://localhost:3000"],
+  methods:["GET", "POST", "PUT", "DELETE"],
+  /* credentials: true */
+}));
 
 app.use('/api/users',userRoute)
 app.use('/api/auth', authRoute)
 app.use('/api/posts', postRoute);
+app.use('/api/comments', commentRoute)
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
