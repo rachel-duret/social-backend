@@ -194,3 +194,10 @@ exports.findFriends = async (req, res) => {
 
     }
 }
+
+
+exports.auth = (req, res)=>{
+    const userToken = req.user
+    console.log(userToken)
+    res.status(200).json(userToken)
+}

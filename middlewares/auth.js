@@ -2,6 +2,7 @@ const {verify} = require('jsonwebtoken');
 
 const validateToken =async (req, res, next)=>{
     const accessToken = req.header('accessToken');
+    console.log(req.header)
 
     if (!accessToken) {
         return res.status(401).json(' You are not logged in !');
@@ -16,7 +17,7 @@ const validateToken =async (req, res, next)=>{
         }
 
     }catch(err){
-        res.staus(500).json(err)
+        res.status(500).json(err)
 
     }
 
