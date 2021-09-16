@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const {sign}= require('jsonwebtoken')
 
 // Signup
 exports.signup = async(req, res) =>{
@@ -31,7 +32,16 @@ exports.login = async(req, res)=>{
         const validPassword = await bcrypt.compare(req.body.password, user.password)
         !validPassword && res.status(400).json('wrong password !')
 
-        res.status(200).json(user);
+        const accessToken = sign({
+            user: user
+        },
+        'RANDOM_TOKEN_SECRET'
+        );
+
+        res.status(200).json({
+            token: accessToken,
+            user:user
+        });
 
     } catch(err){
         res.status(500).json(err);

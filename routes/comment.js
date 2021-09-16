@@ -10,6 +10,7 @@ router.get('/:id', commentCtrl.getOneComment)
 router.post('/', commentCtrl.createOneComment)
 
 //delete a commet
+router.delete('/:id', commentCtrl.deleteOneComment)
 
 //like a commet
 

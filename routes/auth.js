@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router()
+const { validateToken} = require('../middlewares/auth')
+const authCtrl = require('../controllers/auth')
 
-router.get('/',(req, res)=>{
-    res.send('auth is running')
-
-})
+router.get('/', validateToken, authCtrl.auth)
 
 
 module.exports = router
