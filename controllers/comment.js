@@ -25,15 +25,11 @@ exports.createOneComment = async (req, res)=>{
 
 exports.deleteOneComment = async(req, res)=>{
     try{
-        const comment = await Comment.findOne({userId:req.params.id});
-        console.log(comment)
-        console.log(req.body.userId)
-        if(comment.userId === req.body.userId){
+        const comment = await Comment.findById(req.params.id);
+        console.log(comment)   
             await comment.deleteOne();
             res.status(200).json('Your comment has been deleted !')
-        }else{
-            res.status(403).json('You can only delete your own commment !')
-        }
+       
     } catch(err){
         res.status(500).json(err);
         console.log(err)
