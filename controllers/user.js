@@ -76,6 +76,31 @@ exports.updateUser = async(req, res)=>{
 
 }
 
+exports.updateProfile = async(req, res)=>{
+   try{
+       const user = await User.findById(req.params.id);
+       console.log(user)
+       console.log(req.body.userId)
+       if(user._id ===req.body.userId){
+          const newUser = req.file?{
+            coverPicture:`${req.protocol}://${req.get('host')}/images/${req.body.coverPicture}`,
+            profilePicture:`${req.protocol}://${req.get('host')}/images/${req.body.profilePicture}`
+          }:{...req.body}
+
+           await user.updateOne(newUser);
+           res.status(200).json('You profile has been updated.')
+       }else{
+           res.status(403).json('You only can updale your profile.')
+       }
+
+   }catch(err){
+       res.status(500).json(err)
+
+   }
+
+}
+
+
 
 exports.deleteUser = async (req, res)=>{
     if (req.body.userId=== req.params.id || req.body.isAdmin ){

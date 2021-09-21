@@ -7,6 +7,13 @@ const UserSchema = new mongoose.Schema({
         max: 50,
         unique: true
     },
+    birthday:{
+        type:String,
+    },
+    sex:{
+        type:String,
+        default:"female",
+    },
     email:{
         type: String,
         required: true,
@@ -42,18 +49,15 @@ const UserSchema = new mongoose.Schema({
         type: String,
         max:50
     },
-    city:{
+    race:{
         type: String,
         max:50
     },
     from:{
         type: String,
         max:50
-    },
-    relationship:{
-        type: Number,
-        enum:[1, 2, 3],
     }
+   
 
 },
 {
