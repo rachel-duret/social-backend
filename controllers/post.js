@@ -6,8 +6,8 @@ const User = require('../models/User');
 exports.createOnePost = async (req, res)=>{
     console.log(req.body)
     const newPost = new Post({
-        ...req.body,
-        img:`${req.protocol}://${req.get('host')}/images/${req.body.img}`
+        ...req.body
+        
     });
     try{
         const savedPost = await newPost.save();

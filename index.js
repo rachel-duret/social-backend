@@ -40,25 +40,6 @@ app.use('/api/users',userRoute)
 app.use('/api/posts', postRoute);
 app.use('/api/comments', commentRoute)
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "images");
-    },
-    filename: (req, file, cb) => {
-      cb(null, req.body.name);
-    },
-  });
-  
-  const upload = multer({ storage: storage });
-  app.post("/api/upload", upload.single("file"), (req, res) => {
-    try {
-      return res.status(200).json("File uploded successfully");
-    } catch (error) {
-      console.error(error);
-    }
-  });
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
 app.listen(process.env.PORT, ()=>{
     console.log('Server is running! ')
 })
